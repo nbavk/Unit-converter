@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Convert units of length, weight and temperature with this fast and free online tool. Easy to use and mobile-friendly." />
+  <meta name="keywords" content="unit converter, length converter, weight converter, temperature converter, online tool" />
+  <meta name="author" content="Your Name" />
+  <title>Advanced Unit Converter - Length, Weight, Temperature</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .converter {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="converter">
+    <h2>Advanced Unit Converter</h2>
+
+    <select id="category" onchange="loadUnits()">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
+
+    <input type="number" id="inputValue" placeholder="Enter value" />
+
+    <select id="fromUnit"></select>
+    <select id="toUnit"></select>
+
+    <button onclick="convertUnit()">Convert</button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+    const unitOptions = {
+      length: ["meter", "kilometer", "centimeter"],
+      weight: ["gram", "kilogram", "pound"],
+      temperature: ["celsius", "fahrenheit", "kelvin"]
+    };
+
+    function loadUnits() {
+      const category = document.getElementById("category").value;
+      const fromUnit = document.getElementById("fromUnit");
+      const toUnit = document.getElementById("toUnit");
+
+      fromUnit.innerHTML = "";
+      toUnit.innerHTML = "";
+
+      unitOptions[category].forEach(unit => {
+        const option1 = document.createElement("option");
+        option1.value = option1.text = unit;
+        fromUnit.appendChild(option1);
+
+        const option2 = document.createElement("option");
+        option2.value = option2.text = unit;
+        toUnit.appendChild(option2);
+      });
+    }
+
+    function convertUnit() {
+      const value = parseFloat(document.getElementById("inputValue").value);
+      const category = document.getElementById("category").value;
+      const from = document.getElementById("fromUnit").value;
+      const to = document.getElementById("toUnit").value;
+      const result = document.getElementById("result");
+
+      if (isNaN(value)) {
+        result.innerText = "Please enter a valid number.";
+        return;
+      }
+
+      let convertedValue;
+
+      if (category === "length") {
+        const factors = { meter: 1, kilometer: 0.001, centimeter: 100 };
+        convertedValue = value / factors[from] * factors[to];
+      } else if (category === "weight") {
+        const factors = { gram: 1, kilogram: 0.001, pound: 0.00220462 };
+        convertedValue = value / factors[from] * factors[to];
+      } else if (category === "temperature") {
+        if (from === "celsius") {
+          if (to === "fahrenheit") convertedValue = value * 9/5 + 32;
+          else if (to === "kelvin") convertedValue = value + 273.15;
+          else convertedValue = value;
+        } else if (from === "fahrenheit") {
+          if (to === "celsius") convertedValue = (value - 32) * 5/9;
+          else if (to === "kelvin") convertedValue = (value - 32) * 5/9 + 273.15;
+          else convertedValue = value;
+        } else if (from === "kelvin") {
+          if (to === "celsius") convertedValue = value - 273.15;
+          else if (to === "fahrenheit") convertedValue = (value - 273.15) * 9/5 + 32;
+          else convertedValue = value;
+        }
+      }
+
+      result.innerText = `${value} ${from} = ${convertedValue.toFixed(4)} ${to}`;
+    }
+
+    window.onload = loadUnits;
+  </script>
+</body>
+</html>
