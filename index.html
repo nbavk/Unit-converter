@@ -1,76 +1,36 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
-  <meta name="description" content="Convert kilo, hecto, deci, meter, yard, light year and more with this SEO optimized unit converter tool." />
-  <meta name="keywords" content="unit converter, kilo, hecto, meter, yard, light year, conversion tool, online calculator" />
-  <meta name="author" content="nbavk" />
-  <title>Advanced Unit Converter</title>
-  <style>
-    body { font-family: Arial; background: #f0f8ff; padding: 20px; }
-    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
-    input, select, button { width: 100%; padding: 10px; margin: 10px 0; }
-    footer { text-align: center; margin-top: 30px; }
-  </style>
+  <meta name="description" content="Convert length, weight, time and more units quickly and accurately. Best online unit converter tool.">
+  <meta name="keywords" content="unit converter, length converter, weight converter, time converter, measurement converter, mm to inch, kg to lbs, seo friendly">
+  <meta name="author" content="nbavk">
+  <title>Universal Unit Converter</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h2>Unit Converter Tool</h2>
+    <h1>Universal Unit Converter</h1>
     <select id="category" onchange="loadUnits()">
       <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="time">Time</option>
     </select>
-    <input type="number" id="inputValue" placeholder="Enter value" />
-    <select id="fromUnit"></select>
-    <select id="toUnit"></select>
-    <button onclick="convertUnit()">Convert</button>
-    <p id="result"></p>
-    <div style="background:#ddd; text-align:center; height:90px; line-height:90px;">[Ad Placeholder]</div>
+
+    <div class="converter">
+      <input type="number" id="inputValue" placeholder="Enter value" />
+      <select id="fromUnit"></select>
+      <span>to</span>
+      <select id="toUnit"></select>
+      <button onclick="convert()">Convert</button>
+    </div>
+    <div class="result" id="result">Result will appear here</div>
+
+    <div class="ad-space">Your Ad Here</div>
   </div>
-  <footer>
-    <a href="privacy.html">Privacy Policy</a> | <a href="disclaimer.html">Disclaimer</a>
-  </footer>
-  <script>
-    const units = {
-      length: ["millimeter", "centimeter", "decimeter", "meter", "decameter", "hectometer", "kilometer", "inch", "foot", "yard", "mile", "light year"]
-    };
-    const factors = {
-      millimeter: 0.001, centimeter: 0.01, decimeter: 0.1, meter: 1, decameter: 10,
-      hectometer: 100, kilometer: 1000, inch: 0.0254, foot: 0.3048, yard: 0.9144,
-      mile: 1609.34, "light year": 9.461e+15
-    };
-    function loadUnits() {
-      const category = "length";
-      const from = document.getElementById("fromUnit");
-      const to = document.getElementById("toUnit");
-      from.innerHTML = to.innerHTML = '';
-      units[category].forEach(unit => {
-        let opt1 = new Option(unit, unit);
-        let opt2 = new Option(unit, unit);
-        from.add(opt1);
-        to.add(opt2);
-      });
-    }
-    function convertUnit() {
-      let val = parseFloat(document.getElementById("inputValue").value);
-      let from = document.getElementById("fromUnit").value;
-      let to = document.getElementById("toUnit").value;
-      if (!val || !from || !to) return;
-      let result = (val * factors[from]) / factors[to];
-      document.getElementById("result").innerText = `${val} ${from} = ${result.toFixed(5)} ${to}`;
-    }
-    window.onload = loadUnits;
-  </script><script async="async" data-cfasync="false" src="//pl26349876.profitableratecpm.com/2e6fa57787ff9d5496ed5f7f7f71faad/invoke.js"></script>
-<div id="container-2e6fa57787ff9d5496ed5f7f7f71faad"></div><script type="text/javascript">
-	atOptions = {
-		'key' : '75f3e0dc4122bffcf0b36b53b7663909',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/75f3e0dc4122bffcf0b36b53b7663909/invoke.js"></script>
+
+  <script src="script.js"></script>
 </body>
 </html>
